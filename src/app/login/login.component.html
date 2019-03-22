@@ -1,3 +1,7 @@
 <div class="container">
   <button class="btn btn-primary" (click)="onLogin()">Login</button>
+  <p>access token: {{ appService.accessToken }}</p>
+  <p>refresh token: {{ appService.refreshToken }}</p>
+  <p>account id: {{ appService.accountId }}</p>
+  <p>account username: {{ appService.accountUserName }}</p>
 </div>

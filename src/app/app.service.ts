@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +19,13 @@ export class AppService {
   constructor(private http: HttpClient) {
   }
 
-  generateAccessTokenPOST(): any {
+  generateAccessTokenPOST(): Observable<any> {
     const body = { refresh_token: this.refreshToken,
                     client_id: this.clientId,
                     client_secret: this.clientSecret,
                     grant_type: 'refresh_token' };
-    return this.http.post('https://api.imgur.com/oauth2/token', body);
+    return this.http.post('https://api.imgur.com/oauth2/token', body)
+                .pipe(map((res: Response) => JSON.stringify(res)));
+
   }
 }
