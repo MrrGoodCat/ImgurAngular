@@ -1,5 +1,6 @@
 <div class="container">
   <button class="btn btn-primary" (click)="onLogin()">Login</button>
+  <button class="btn btn-primary" [routerLink]="['/welcome']">Welcome</button>
   <p>access token: {{ appService.accessToken }}</p>
   <p>refresh token: {{ appService.refreshToken }}</p>
   <p>account id: {{ appService.accountId }}</p>

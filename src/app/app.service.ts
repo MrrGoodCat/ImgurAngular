@@ -12,9 +12,11 @@ export class AppService {
   accountId = '40164026';
   accountUserName = 'MrrGoodCat';
   tokenType = 'bearer';
-  accessToken: string; // = 'b2116f9e01d1a282593b5f603ba2698f241c1588';
+  accessToken = '45b24886d3f2cd654d0ae178d3e3d5fafddc3fdc';
   clientId = '068110f0021f5da';
   clientSecret = 'b55270a2853c88b26f7475f703f45d1d71093a9f';
+
+  redirectUrl: string;
 
   constructor(private http: HttpClient) {
   }

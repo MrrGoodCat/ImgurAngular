@@ -1,0 +1,56 @@
+.nav
+  width: 100%
+  height: 60px
+  display: flex
+  flex-direction: row
+  // flex-wrap: wrap
+  justify-content: space-between
+  align-items: center
+  background-color: #214d72
+  .left-side
+    margin-left: 3%
+    flex: 1 1 auto
+    h2
+
+      // height: 60px
+      a
+        // border: 1px solid red
+        color: #ffffff
+        padding: 13.5px 40px
+        &:hover
+          background-color: #1d3752
+  .center
+    display: flex
+    flex: 3 1 auto
+    ul
+      display: flex
+      justify-content: flex-start
+      // flex-wrap: wrap
+      width: 100%
+      list-style: none
+      li
+        display: flex
+        flex-wrap: wrap
+        a
+          font-size: 18px
+          padding: 18px 40px
+          color: #ffffff
+          // border: 1px solid red
+          &:hover
+            background-color: #1d3752
+  .right-side
+    margin-right: 3%
+    display: flex
+    justify-content: flex-end
+    flex: 2 1 auto
+    .user
+      a
+        font-size: 18px
+        padding: 18px 40px
+        color: #ffffff
+        // border: 1px solid red
+        &:hover
+          background-color: #1d3752
+
+.active
+  background-color: #1d3752

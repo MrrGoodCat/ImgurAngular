@@ -41,9 +41,13 @@ export class LoginComponent implements OnInit {
            console.log('Got token for user: ', responseInfo.account_username);
       },
       err => console.error(err),
-      () => console.log('onLogin() succseded, redirect to: /welcome ')
+      () => console.log('onLogin() succseded, redirect to: ', this.appService.redirectUrl)
       );
+      if (this.appService.redirectUrl) {
+        this.router.navigateByUrl(this.appService.redirectUrl);
+      } else {
       this.router.navigate(['/welcome']);
+      }
       return;
     }
     console.error('Unknown error has been occured.');
