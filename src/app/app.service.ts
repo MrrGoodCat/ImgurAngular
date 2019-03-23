@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { CookieService } from 'ngx-cookie-service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,13 +14,14 @@ export class AppService {
   accountId = '40164026';
   accountUserName = 'MrrGoodCat';
   tokenType = 'bearer';
-  accessToken = '45b24886d3f2cd654d0ae178d3e3d5fafddc3fdc';
+  accessToken;// = '45b24886d3f2cd654d0ae178d3e3d5fafddc3fdc';
   clientId = '068110f0021f5da';
   clientSecret = 'b55270a2853c88b26f7475f703f45d1d71093a9f';
 
   redirectUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private cookieService: CookieService) {
   }
 
   generateAccessTokenPOST(): Observable<any> {
