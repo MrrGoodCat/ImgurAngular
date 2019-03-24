@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
       this.appService.accessToken = this.cookieService.get('Imgur_token');
       console.log('User has already logged in, no need to validate, redirect to /welcome');
       this.router.navigate(['/welcome']);
+      this.appService.isLoggedIn = true;
     }
   }
 
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
       this.appService.accessToken = this.cookieService.get('Imgur_token');
       console.log('User has already logged in, no need to validate, redirect to /welcome');
       this.router.navigate(['/welcome']);
+      this.appService.isLoggedIn = true;
       return;
     }
 
@@ -52,6 +54,7 @@ export class LoginComponent implements OnInit {
            this.appService.accountUserName = responseInfo.account_username;
            this.cookieService.set('Imgur_token', responseInfo.access_token);
            console.log('Got token for user: ', responseInfo.account_username);
+           this.appService.isLoggedIn = true;
       },
       err => console.error(err),
       () => console.log('onLogin() succseded, redirect to: ', this.appService.redirectUrl)

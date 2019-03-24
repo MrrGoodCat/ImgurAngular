@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -19,6 +19,7 @@ export class AppService {
   clientSecret = 'b55270a2853c88b26f7475f703f45d1d71093a9f';
 
   redirectUrl: string;
+  isLoggedIn = false;
 
   constructor(private http: HttpClient,
               private cookieService: CookieService) {
@@ -31,6 +32,11 @@ export class AppService {
                     grant_type: 'refresh_token' };
     return this.http.post('https://api.imgur.com/oauth2/token', body)
                 .pipe(map((res: Response) => JSON.stringify(res)));
+  }
 
+  getAccountBase(): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': 'Client-ID 068110f0021f5da' });
+    const options = { headers: headers };
+    return this.http.get(`https://api.imgur.com/3/account/${this.accountUserName}`, options);
   }
 }

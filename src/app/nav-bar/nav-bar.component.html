@@ -1,6 +1,10 @@
 <div class="nav">
   <div class="left-side">
-      <h2><a [routerLink]="['/welcome']" routerLinkActive="active" class="home">Imgur</a></h2>
+    <h2>
+      <a [routerLink]="['/welcome']" routerLinkActive="active" class="home"
+        >Imgur</a
+      >
+    </h2>
   </div>
   <div class="center">
     <ul>
@@ -11,7 +15,22 @@
   </div>
   <div class="right-side">
     <div class="user">
-      <a [routerLink]="['/login']" routerLinkActive="active" class="login">Sign in</a>
+      <a
+        *ngIf="!appService.isLoggedIn"
+        [routerLink]="['/login']"
+        routerLinkActive="active"
+        class="login"
+        >Sign in rgrrtg</a
+      >
+      <a *ngIf="appService.isLoggedIn" (click)="onDropdownToggle()">{{appService.accountUserName}}</a>
+      <div class="user-menu" [class.show]="isOpen">
+        <div class="triangle"></div>
+        <ul>
+          <li><a [routerLink]="['/user']" (click)="onDropdownToggle()" routerLinkActive="active">Account</a></li>
+          <li><a href="#" routerLinkActive="active">Images</a></li>
+          <li><a href="#" routerLinkActive="active">Settings</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

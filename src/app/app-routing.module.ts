@@ -16,6 +16,10 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'user',
+    loadChildren: './user/user.module#UserModule'
+  },
+  {
     path: '',
     redirectTo: 'welcome',
     pathMatch: 'full'
