@@ -35,8 +35,8 @@ export class AppService {
   }
 
   getAccountAvatar(username: string): Observable<any> {
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${this.accessToken}` });
-    const options = { headers: headers };
+    const headers = new HttpHeaders({ Authorization: `Bearer ${this.accessToken}` });
+    const options = { headers };
     return this.http.get(`https://api.imgur.com/3/account/${username}/avatar`, options);
   }
 }

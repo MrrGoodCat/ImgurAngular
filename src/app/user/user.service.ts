@@ -13,8 +13,8 @@ export class UserService {
   accountBaseInformation = new AccountBase();
 
   getAccountBase(username: string): Observable<any> {
-    const headers = new HttpHeaders({ 'Authorization': 'Client-ID 068110f0021f5da' });
-    const options = { headers: headers };
+    const headers = new HttpHeaders({ Authorization: 'Client-ID 068110f0021f5da' });
+    const options = { headers };
     return this.http.get(`https://api.imgur.com/3/account/${username}`, options);
   }
 }
