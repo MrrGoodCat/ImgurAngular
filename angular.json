@@ -28,7 +28,7 @@
             ],
             "styles": [
               "src/styles.sass",
-              "button.sass"
+              "src/button.sass"
             ],
             "scripts": [],
             "es5BrowserSupport": true

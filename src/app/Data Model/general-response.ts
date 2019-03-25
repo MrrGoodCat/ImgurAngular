@@ -1,4 +1,4 @@
-export interface GeneralResponse <T> {
+export class GeneralResponse <T> {
   data: T;
   success: boolean;
   status: number;

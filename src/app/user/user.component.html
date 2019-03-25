@@ -1,3 +1,7 @@
 <div class="container">
+  <div class="header" [ngStyle]="{'background-image': 'url(' + userService.accountBaseInformation.cover + ')'}">
+    <!-- <img src={{userService.accountBaseInformation.cover}} alt=""> -->
+  </div>
+  <p>{{userService.accountBaseInformation.cover_name}}</p>
   user works!
 </div>

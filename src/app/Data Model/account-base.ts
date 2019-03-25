@@ -1,4 +1,4 @@
-export interface AccountBase {
+export class AccountBase {
   id: string;
   url: string;
   bio: string;
@@ -8,7 +8,7 @@ export interface AccountBase {
   cover_name: string;
   reputation: number;
   reputation_name: string;
-  created: Date;
+  created: number;
   pro_expiration: string;
   // user_follow: {
   //     status: false

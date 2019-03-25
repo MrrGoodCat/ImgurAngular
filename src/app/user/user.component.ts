@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
-import { GeneralResponse } from '../interfases/general-response';
-import { AccountBase } from '../interfases/account-base';
+import { GeneralResponse } from '../Data Model/general-response';
+import { AccountBase } from '../Data Model/account-base';
+import { UserService } from './user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -10,18 +12,35 @@ import { AccountBase } from '../interfases/account-base';
 })
 export class UserComponent implements OnInit {
 
-  accData: GeneralResponse<AccountBase>;
-  constructor(protected appService: AppService,
-              ) { }
 
+  constructor(protected appService: AppService,
+              protected userService: UserService,
+              private route: ActivatedRoute) { }
+
+  onUserRetrived(user: GeneralResponse<AccountBase>): void {
+    const tempData = JSON.stringify(user);
+    const accData: GeneralResponse<AccountBase> = JSON.parse(tempData);
+    this.userService.accountBaseInformation = accData.data;
+    console.log(accData);
+    console.log(accData.data);
+  }
   ngOnInit() {
-    this.appService.getAccountBase().subscribe(
-      data => {
-        this.accData = JSON.parse(data);
-        console.log(this.accData);
-        console.log(this.accData.data.url);
-      }
-    );
+    this.route.data.subscribe(data => {
+      const resolvedData: GeneralResponse<AccountBase> = data.userBase; // ['userBase'];
+      this.onUserRetrived(data.userBase);
+    });
+
+
+
+    // this.userService.getAccountBase().subscribe(
+    //   data => {
+    //     const tempData = JSON.stringify(data);
+    //     const accData: GeneralResponse<AccountBase> = JSON.parse(tempData);
+    //     this.userService.accountBaseInformation = accData.data;
+    //     console.log(accData);
+    //     console.log(accData.data);
+    //   }
+    // );
   }
 
 }

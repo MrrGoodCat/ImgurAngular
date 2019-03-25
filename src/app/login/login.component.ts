@@ -21,12 +21,12 @@ export class LoginComponent implements OnInit {
   cookieValue = 'UNKNOWN';
 
   ngOnInit() {
-    if (this.cookieService.check('Imgur_token')) { // this.appService.accessToken
-      this.appService.accessToken = this.cookieService.get('Imgur_token');
-      console.log('User has already logged in, no need to validate, redirect to /welcome');
-      this.router.navigate(['/welcome']);
-      this.appService.isLoggedIn = true;
-    }
+    // if (this.cookieService.check('Imgur_token')) { // this.appService.accessToken
+    //   this.appService.accessToken = this.cookieService.get('Imgur_token');
+    //   console.log('User has already logged in, no need to validate, redirect to /welcome');
+    //   this.router.navigate(['/welcome']);
+    //   this.appService.isLoggedIn = true;
+    // }
   }
 
   onLogin(): void {
