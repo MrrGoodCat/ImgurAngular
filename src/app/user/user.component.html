@@ -1,7 +1,15 @@
 <div class="container">
   <div class="header" [ngStyle]="{'background-image': 'url(' + userService.accountBaseInformation.cover + ')'}">
-    <!-- <img src={{userService.accountBaseInformation.cover}} alt=""> -->
+    <div class="account-name">
+      <div class="logo" [ngStyle]="{'background-image': 'url(' + userService.accountBaseInformation.avatar + ')'}">
+
+      </div>
+      <div class="name-container">
+        <h2>{{userService.accountBaseInformation.url}}</h2>
+        <span>{{userService.accountBaseInformation.reputation}} PTS</span>
+        <span>•</span>
+        <span>{{userService.accountBaseInformation.reputation_name}}</span>
+      </div>
+    </div>
   </div>
-  <p>{{userService.accountBaseInformation.cover_name}}</p>
-  user works!
 </div>

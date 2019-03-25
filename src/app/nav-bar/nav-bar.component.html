@@ -26,9 +26,9 @@
       <div class="user-menu" [class.show]="isOpen">
         <div class="triangle"></div>
         <ul>
-          <li><a [routerLink]="['/user']" (click)="onDropdownToggle()" routerLinkActive="active">Account</a></li>
-          <li><a href="#" routerLinkActive="active">Images</a></li>
+          <li><a [routerLink]="['/user', appService.accountUserName]" (click)="onDropdownToggle()">Account</a></li>
           <li><a href="#" routerLinkActive="active">Settings</a></li>
+          <li><a href="#" routerLinkActive="active">Sign Out</a></li>
         </ul>
       </div>
     </div>

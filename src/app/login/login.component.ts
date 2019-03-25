@@ -56,9 +56,13 @@ export class LoginComponent implements OnInit {
            console.log('Got token for user: ', responseInfo.account_username);
            this.appService.isLoggedIn = true;
       },
-      err => console.error(err),
+      err => {
+        console.error(err);
+        return;
+      },
       () => console.log('onLogin() succseded, redirect to: ', this.appService.redirectUrl)
       );
+      // this.appService.getAccountAvatar()
       if (this.appService.redirectUrl) {
         this.router.navigateByUrl(this.appService.redirectUrl);
       } else {

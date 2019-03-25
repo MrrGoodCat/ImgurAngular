@@ -33,4 +33,10 @@ export class AppService {
     return this.http.post('https://api.imgur.com/oauth2/token', body)
                 .pipe(map((res: Response) => JSON.stringify(res)));
   }
+
+  getAccountAvatar(username: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${this.accessToken}` });
+    const options = { headers: headers };
+    return this.http.get(`https://api.imgur.com/3/account/${username}/avatar`, options);
+  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GeneralResponse } from '../Data Model/general-response';
 import { AccountBase } from '../Data Model/account-base';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from './user.service';
 
@@ -10,7 +10,8 @@ export class UserResolverService implements Resolve<GeneralResponse<AccountBase>
 
   resolve(route: ActivatedRouteSnapshot,
           state: RouterStateSnapshot): Observable<GeneralResponse<AccountBase>> {
-            return this.userService.getAccountBase();
+            const username = route.paramMap.get('username');
+            return this.userService.getAccountBase(username);
           }
   constructor(private userService: UserService) { }
 }
