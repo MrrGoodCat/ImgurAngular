@@ -1,4 +1,4 @@
-export interface iUserSecurity {
+export class UserSecurity {
   refresh_token: string;
   account_id: string;
   account_username: string;
