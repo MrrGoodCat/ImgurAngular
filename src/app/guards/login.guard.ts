@@ -19,15 +19,18 @@ export class LoginGuard implements CanActivate {
               private router: Router) {}
 
   checkLoggedIn(url: string): boolean {
-    if (this.appService.userSecurity.access_token) {
+    if (this.appService.getCookie()) {
+      console.log('Token is: ', this.appService.userSecurity.account_username);
       this.appService.getAccountAvatar(this.appService.userSecurity.account_username).subscribe(
         data => {
           const temp = JSON.stringify(data);
           const avatar: GeneralResponse<Avatar> = JSON.parse(temp);
           this.appService.userAvatar = avatar.data.avatar;
-        }
+          console.log('Avatar is: ', this.appService.userAvatar);
+        },
+        err => console.log(err),
+        () => this.appService.redirectUrl = url
       );
-      this.appService.redirectUrl = url;
       return true;
     }
     this.router.navigate(['/login']);

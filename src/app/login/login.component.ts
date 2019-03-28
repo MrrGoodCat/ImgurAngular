@@ -34,9 +34,10 @@ export class LoginComponent implements OnInit {
   onLogin(): void {
     // This validation has been moved to OnInit method
     if (this.cookieService.check('Imgur_token')) { // this.appService.accessToken
-      this.appService.userSecurity.access_token = this.cookieService.get('Imgur_token');
-      this.appService.userSecurity.account_username = this.cookieService.get('Imgur_username');
-      this.appService.userSecurity.account_id = this.cookieService.get('Imgur_user_Id');
+      // this.appService.userSecurity.access_token = this.cookieService.get('Imgur_token');
+      // this.appService.userSecurity.account_username = this.cookieService.get('Imgur_username');
+      // this.appService.userSecurity.account_id = this.cookieService.get('Imgur_user_Id');
+      this.appService.getCookie();
       console.log('User has already logged in, no need to validate, redirect to /welcome');
       this.router.navigate(['/welcome']);
       this.appService.isLoggedIn = true;
@@ -57,13 +58,15 @@ export class LoginComponent implements OnInit {
         console.error(err);
         return;
       },
-      () => console.log('onLogin() succseded, redirect to: ', this.appService.redirectUrl)
+      () => {console.log('onLogin() succseded, redirect to: ', this.appService.redirectUrl);
+             if (this.appService.redirectUrl) {
+              console.log('Redirection after login to: ', this.appService.redirectUrl );
+              this.router.navigate([this.appService.redirectUrl]);
+            } else {
+              this.router.navigate(['/welcome']);
+            }
+          }
       );
-      if (this.appService.redirectUrl) {
-        this.router.navigateByUrl(this.appService.redirectUrl);
-      } else {
-      this.router.navigate(['/welcome']);
-      }
       return;
     }
     console.error('Unknown error has been occured.');
@@ -74,10 +77,13 @@ export class LoginComponent implements OnInit {
     this.appService.userSecurity.refresh_token = user.refresh_token;
     this.appService.userSecurity.account_id = user.account_id;
     this.appService.userSecurity.account_username = user.account_username;
-    this.cookieService.set('Imgur_token', user.access_token);
-    this.cookieService.set('Imgur_username', user.account_username);
-    this.cookieService.set('Imgur_user_Id', user.account_id);
-    console.log('Got token for user: ', user.account_username);
+    this.appService.accountUserName = user.account_username;
+    console.log('populateUserData()');
+    this.appService.setCookies();
+    // this.cookieService.set('Imgur_token', user.access_token);
+    // this.cookieService.set('Imgur_username', user.account_username);
+    // this.cookieService.set('Imgur_user_Id', user.account_id);
+    // console.log('Got token for user: ', user.account_username);
     this.appService.isLoggedIn = true;
     // this.appService.getAccountAvatar(user.account_username).subscribe(
     //   data => {

@@ -22,25 +22,12 @@ export class UserComponent implements OnInit {
     const accData: GeneralResponse<AccountBase> = JSON.parse(tempData);
     this.userService.accountBaseInformation = accData.data;
     console.log(accData);
-    console.log(accData.data);
   }
   ngOnInit() {
     this.route.data.subscribe(data => {
       const resolvedData: GeneralResponse<AccountBase> = data.userBase; // ['userBase'];
       this.onUserRetrived(data.userBase);
     });
-
-
-
-    // this.userService.getAccountBase().subscribe(
-    //   data => {
-    //     const tempData = JSON.stringify(data);
-    //     const accData: GeneralResponse<AccountBase> = JSON.parse(tempData);
-    //     this.userService.accountBaseInformation = accData.data;
-    //     console.log(accData);
-    //     console.log(accData.data);
-    //   }
-    // );
   }
 
 }

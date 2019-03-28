@@ -13,16 +13,21 @@ import { UserSecurity } from './Data Model/user-security';
 export class AppService {
 
   refreshToken = '6ba6731af03cab3214e26044319eab989c380a4c';
-  accountId = '40164026';
+  // accountId = '40164026';
   accountUserName = 'MrrGoodCat';
-  userAvatar: string;
+  userAvatar?: string;
   tokenType = 'bearer';
-  accessToken: string; // = '45b24886d3f2cd654d0ae178d3e3d5fafddc3fdc';
+  // accessToken: string; // = '45b24886d3f2cd654d0ae178d3e3d5fafddc3fdc';
+
   clientId = '068110f0021f5da';
   clientSecret = 'b55270a2853c88b26f7475f703f45d1d71093a9f';
 
   redirectUrl: string;
   isLoggedIn = false;
+
+  cookieToken = 'Imgur_token';
+  cookieAccountName = 'Imgur_username';
+  cookieAccountId = 'Imgur_user_Id';
 
   userSecurity = new UserSecurity();
 
@@ -41,16 +46,42 @@ export class AppService {
   }
 
   getAccountAvatar(username: string): Observable<any> {
-    const headers = new HttpHeaders({ Authorization: `Bearer ${this.userSecurity.access_token}` });
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${this.userSecurity.access_token}` });
     const options = { headers };
-    return this.http.get(`https://api.imgur.com/3/account/${username}/avatar`, options);
+    const url = `https://api.imgur.com/3/account/${username}/avatar`;
+    console.log('Avatar url is: ', url);
+    console.log('Avatar token is: ', this.userSecurity.access_token);
+    return this.http.get(url, options);
   }
 
   onLogOut(): void {
     this.isLoggedIn = false;
-    // this.cookieService.delete('Imgur_token');
-    this.cookieService.deleteAll('/', 'localhost');
-    this.userSecurity = null;
+    this.deleteCookie();
+    this.userSecurity = new UserSecurity();
     this.router.navigate(['/login']);
+  }
+
+  setCookies() {
+    this.cookieService.set(this.cookieToken, this.userSecurity.access_token);
+    this.cookieService.set(this.cookieAccountName, this.userSecurity.account_username);
+    this.cookieService.set(this.cookieAccountId, this.userSecurity.account_id);
+  }
+
+  getCookie(): boolean {
+    if (this.cookieService.check(this.cookieToken) &&
+        this.cookieService.check(this.cookieAccountName) &&
+        this.cookieService.check(this.cookieAccountId)) {
+      this.userSecurity.access_token = this.cookieService.get(this.cookieToken);
+      this.userSecurity.account_username = this.cookieService.get(this.cookieAccountName);
+      this.userSecurity.account_id = this.cookieService.get(this.cookieAccountId);
+      return true;
+    }
+    return false;
+  }
+
+  deleteCookie() {
+    this.cookieService.delete(this.cookieToken);
+    this.cookieService.delete(this.cookieAccountName);
+    this.cookieService.delete(this.cookieAccountId);
   }
 }

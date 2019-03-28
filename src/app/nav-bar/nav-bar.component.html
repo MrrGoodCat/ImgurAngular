@@ -22,13 +22,17 @@
         class="login"
         >Sign In</a
       >
-      <a *ngIf="appService.isLoggedIn" (click)="onDropdownToggle()">{{appService.userSecurity.account_username}}</a>
+      <a *ngIf="appService.isLoggedIn"
+          (click)="onDropdownToggle()">
+          {{appService.userSecurity.account_username}}
+        <span [ngStyle]="{'background-image': 'url(' + appService.userAvatar + ')'}"></span>
+      </a>
       <div class="user-menu" [class.show]="isOpen">
         <div class="triangle"></div>
         <ul>
           <li><a [routerLink]="['/user', appService.userSecurity.account_username]" (click)="onDropdownToggle()">Account</a></li>
           <li><a href="#" routerLinkActive="active">Settings</a></li>
-          <li><a (click)="appService.onLogOut()">Sign Out</a></li>
+          <li><a (click)="onLogOut()">Sign Out</a></li>
         </ul>
       </div>
     </div>

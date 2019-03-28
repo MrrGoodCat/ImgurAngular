@@ -26,7 +26,7 @@ export class NavBarComponent implements OnInit {
   }
 
   onLogOut() {
-    this.onDropdownToggle();
+    this.isOpen = true;
     this.appService.onLogOut();
   }
 
