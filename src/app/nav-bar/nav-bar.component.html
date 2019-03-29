@@ -11,6 +11,7 @@
       <li><a href="#" routerLinkActive="active">Images</a></li>
       <li><a href="#" routerLinkActive="active">GIFs</a></li>
       <li><a href="#" routerLinkActive="active">Video</a></li>
+      <li><span [ngStyle]="{'background-image': 'url(' + appService.userAvatar + ')'}"></span></li>
     </ul>
   </div>
   <div class="right-side">
@@ -25,7 +26,6 @@
       <a *ngIf="appService.isLoggedIn"
           (click)="onDropdownToggle()">
           {{appService.userSecurity.account_username}}
-        <!-- <span [ngStyle]="{'background-image': 'url(' + appService.userAvatar + ')'}"></span> -->
       </a>
       <div class="user-menu" [class.show]="isOpen">
         <div class="triangle"></div>
