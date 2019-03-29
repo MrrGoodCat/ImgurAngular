@@ -16,8 +16,9 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit() {
-    if (this.cookieService.check('Imgur_token') && this.cookieService.check('Imgur_username')) { // this.appService.accessToken
+    if (this.appService.checkCookies()) {
       this.appService.getCookie();
+      this.appService.getAccountAvatarAuth(this.appService.userSecurity.account_username);
       console.log('User has already logged in, no need to validate, redirect to /welcome');
       // this.router.navigate(['/welcome']);
       this.appService.isLoggedIn = true;

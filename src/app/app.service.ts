@@ -1,27 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { UserSecurity } from './Data Model/user-security';
+import { ApiService } from './api.service';
+import { GeneralResponse } from './Data Model/general-response';
+import { Avatar } from './interfases/avatar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
-  refreshToken = '6ba6731af03cab3214e26044319eab989c380a4c';
-  // accountId = '40164026';
-  accountUserName = 'MrrGoodCat';
   userAvatar?: string;
-  tokenType = 'bearer';
-  // accessToken: string; // = '45b24886d3f2cd654d0ae178d3e3d5fafddc3fdc';
-
-  clientId = '068110f0021f5da';
-  clientSecret = 'b55270a2853c88b26f7475f703f45d1d71093a9f';
-
   redirectUrl: string;
   isLoggedIn = false;
 
@@ -31,27 +22,65 @@ export class AppService {
 
   userSecurity = new UserSecurity();
 
-  constructor(private http: HttpClient,
-              private cookieService: CookieService,
-              private router: Router) {
-  }
+  constructor(
+    private apiService: ApiService,
+    private cookieService: CookieService,
+    private router: Router
+  ) {}
 
-  generateAccessTokenPOST(): Observable<any> {
-    const body = { refresh_token: this.refreshToken,
-                    client_id: this.clientId,
-                    client_secret: this.clientSecret,
-                    grant_type: 'refresh_token' };
-    return this.http.post('https://api.imgur.com/oauth2/token', body)
-                .pipe(map((res: Response) => JSON.stringify(res)));
-  }
+  onLoggIn() {
+    // This validation has been moved to OnInit method
+    if (this.checkCookies()) {
+      this.getCookie();
+      console.log(
+        'User has already logged in, no need to validate, redirect to /welcome'
+      );
+      this.router.navigate(['/welcome']);
+      this.isLoggedIn = true;
+      return;
+    }
 
-  getAccountAvatar(username: string): Observable<any> {
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${this.userSecurity.access_token}` });
-    const options = { headers };
-    const url = `https://api.imgur.com/3/account/${username}/avatar`;
-    console.log('Avatar url is: ', url);
-    console.log('Avatar token is: ', this.userSecurity.access_token);
-    return this.http.get(url, options);
+    if (
+      !this.userSecurity.access_token &&
+      !this.apiService.refreshToken
+    ) {
+      console.log(
+        'This is the first login, redirect to Imgur portal for account validation.'
+      );
+      return;
+    }
+    if (
+      !this.userSecurity.access_token &&
+      this.apiService.refreshToken
+    ) {
+      console.log('Need to get access token.');
+      this.apiService.generateAccessTokenPOST().subscribe(
+        data => {
+          this.populateUserData(JSON.parse(data));
+        },
+        err => {
+          console.error(err);
+          return;
+        },
+        () => {
+          console.log(
+            'onLogin() succseded, redirect to: ',
+            this.redirectUrl
+          );
+          if (this.redirectUrl) {
+            console.log(
+              'Redirection after login to: ',
+              this.redirectUrl
+            );
+            this.router.navigate([this.redirectUrl]);
+          } else {
+            this.router.navigate(['/welcome']);
+          }
+        }
+      );
+      return;
+    }
+    console.error('Unknown error has been occured.');
   }
 
   onLogOut(): void {
@@ -63,17 +92,26 @@ export class AppService {
 
   setCookies() {
     this.cookieService.set(this.cookieToken, this.userSecurity.access_token);
-    this.cookieService.set(this.cookieAccountName, this.userSecurity.account_username);
+    this.cookieService.set(
+      this.cookieAccountName,
+      this.userSecurity.account_username
+    );
     this.cookieService.set(this.cookieAccountId, this.userSecurity.account_id);
   }
 
   getCookie(): boolean {
-    if (this.cookieService.check(this.cookieToken) &&
-        this.cookieService.check(this.cookieAccountName) &&
-        this.cookieService.check(this.cookieAccountId)) {
+    if (
+      this.cookieService.check(this.cookieToken) &&
+      this.cookieService.check(this.cookieAccountName) &&
+      this.cookieService.check(this.cookieAccountId)
+    ) {
       this.userSecurity.access_token = this.cookieService.get(this.cookieToken);
-      this.userSecurity.account_username = this.cookieService.get(this.cookieAccountName);
-      this.userSecurity.account_id = this.cookieService.get(this.cookieAccountId);
+      this.userSecurity.account_username = this.cookieService.get(
+        this.cookieAccountName
+      );
+      this.userSecurity.account_id = this.cookieService.get(
+        this.cookieAccountId
+      );
       return true;
     }
     return false;
@@ -83,5 +121,45 @@ export class AppService {
     this.cookieService.delete(this.cookieToken);
     this.cookieService.delete(this.cookieAccountName);
     this.cookieService.delete(this.cookieAccountId);
+  }
+
+  checkCookies(): boolean {
+    if (
+      this.cookieService.check(this.cookieToken) &&
+      this.cookieService.check(this.cookieAccountName) &&
+      this.cookieService.check(this.cookieAccountId)
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  populateUserData(user: UserSecurity): void {
+    this.userSecurity.access_token = user.access_token;
+    this.userSecurity.refresh_token = user.refresh_token;
+    this.userSecurity.account_id = user.account_id;
+    this.userSecurity.account_username = user.account_username;
+    // this.appService.accountUserName = user.account_username;
+    console.log('populateUserData()');
+    this.setCookies();
+    this.isLoggedIn = true;
+    // this.appService.getAccountAvatar(user.account_username).subscribe(
+    //   data => {
+    //     const avatar: GeneralResponse<Avatar> = JSON.parse(data);
+    //   }
+    // );
+  }
+
+  getAccountAvatarAuth(username: string) {
+    this.apiService.accountAvatarGET(username, this.userSecurity.access_token).subscribe(
+      data => {
+        const temp = JSON.stringify(data);
+        const avatar: GeneralResponse<Avatar> = JSON.parse(temp);
+        this.userAvatar = avatar.data.avatar;
+        console.log('Avatar is: ', this.userAvatar);
+      },
+      err => console.log(err),
+      () => console.log('Avatar url is successfully retrieved.')
+    );
   }
 }

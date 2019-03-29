@@ -25,7 +25,7 @@
       <a *ngIf="appService.isLoggedIn"
           (click)="onDropdownToggle()">
           {{appService.userSecurity.account_username}}
-        <span [ngStyle]="{'background-image': 'url(' + appService.userAvatar + ')'}"></span>
+        <!-- <span [ngStyle]="{'background-image': 'url(' + appService.userAvatar + ')'}"></span> -->
       </a>
       <div class="user-menu" [class.show]="isOpen">
         <div class="triangle"></div>
