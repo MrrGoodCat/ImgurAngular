@@ -20,16 +20,7 @@ export class LoginGuard implements CanActivate {
   checkLoggedIn(url: string): boolean {
     if (this.appService.checkCookies()) {
       this.appService.redirectUrl = url;
-      // this.appService.getAccountAvatar(this.appService.userSecurity.account_username).subscribe(
-      //   data => {
-      //     const temp = JSON.stringify(data);
-      //     const avatar: GeneralResponse<Avatar> = JSON.parse(temp);
-      //     this.appService.userAvatar = avatar.data.avatar;
-      //     console.log('Avatar is: ', this.appService.userAvatar);
-      //   },
-      //   err => console.log(err),
-      //   () => this.appService.redirectUrl = url
-      // );
+      console.log('Current redirect url is: ', url);
       return true;
     }
     this.router.navigate(['/login']);

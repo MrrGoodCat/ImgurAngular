@@ -30,4 +30,8 @@ export class NavBarComponent implements OnInit {
     this.appService.onLogOut();
   }
 
+  getAvatar() {
+    this.appService.getAccountAvatarAuth('MrrGoodCat');
+  }
+
 }

@@ -67,6 +67,7 @@ export class AppService {
             'onLogin() succseded, redirect to: ',
             this.redirectUrl
           );
+          this.getAccountAvatarAuth(this.userSecurity.account_username);
           if (this.redirectUrl) {
             console.log(
               'Redirection after login to: ',
