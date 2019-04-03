@@ -30,13 +30,7 @@ export class AppService {
 
   onLoggIn() {
     // This validation has been moved to OnInit method
-    if (this.checkCookies()) {
-      this.getCookie();
-      console.log(
-        'User has already logged in, no need to validate, redirect to /welcome'
-      );
-      this.router.navigate(['/welcome']);
-      this.isLoggedIn = true;
+    if (this.validateLoginFromCoockie()) {
       return;
     }
 
@@ -82,6 +76,20 @@ export class AppService {
       return;
     }
     console.error('Unknown error has been occured.');
+  }
+
+  validateLoginFromCoockie(): boolean {
+    if (this.checkCookies()) {
+      this.getCookie();
+      this.getAccountAvatarAuth(this.userSecurity.account_username);
+      console.log(
+        'User has already logged in, no need to validate, redirect to /welcome'
+      );
+      this.router.navigate(['/welcome']);
+      this.isLoggedIn = true;
+      return true;
+    }
+    return false;
   }
 
   onLogOut(): void {
