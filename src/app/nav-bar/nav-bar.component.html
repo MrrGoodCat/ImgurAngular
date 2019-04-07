@@ -22,14 +22,7 @@
             routerLinkActive="active">
             <span>Sign In</span>
             <div class="avatar"></div>
-            <!-- <img src="../../" alt=""> -->
       </div>
-      <!-- <a
-        *ngIf="!appService.isLoggedIn"
-        [routerLink]="['/login']"
-        routerLinkActive="active"
-        class="login"
-        >Sign In</a> -->
 
       <div class="login"
             *ngIf="appService.isLoggedIn"
@@ -38,13 +31,6 @@
         <div class="avatar" [ngStyle]="{'background-image': 'url(' + appService.userAvatar + ')'}"></div>
       </div>
 
-      <!-- <a *ngIf="appService.isLoggedIn"
-          (click)="onDropdownToggle()">
-          {{appService.userSecurity.account_username}}
-        <div class="avatar" [ngStyle]="{'background-image': 'url(' + appService.userAvatar + ')'}"></div>
-      </a> -->
-
-      <!-- ' + appService.userAvatar + ' -->
       <div class="user-menu" [class.show]="isOpen">
         <div class="triangle"></div>
         <ul>
