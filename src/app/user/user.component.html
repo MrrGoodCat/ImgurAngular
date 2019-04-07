@@ -1,5 +1,9 @@
 <div class="container">
   <div class="header" [ngStyle]="{'background-image': 'url(' + userService.accountBaseInformation.cover + ')'}">
+    <div class="header-top">
+
+    </div>
+    <div class="header-center">
     <div class="account-name">
       <div class="logo" [ngStyle]="{'background-image': 'url(' + userService.accountBaseInformation.avatar + ')'}">
 
@@ -11,5 +15,19 @@
         <span>{{userService.accountBaseInformation.reputation_name}}</span>
       </div>
     </div>
+  </div>
+  <div class="header-bottom">
+      <div class="menu">
+          <ul>
+            <li><a [routerLink]="['posts']" routerLinkActive="isActive">POSTS</a></li>
+            <li><a [routerLink]="['favorites']" routerLinkActive="isActive">FAVORITES</a></li>
+            <li><a [routerLink]="['comments']" routerLinkActive="isActive">COMMENTS</a></li>
+            <li><a [routerLink]="['about']" routerLinkActive="isActive">ABOUT</a></li>
+          </ul>
+        </div>
+  </div>
+  </div>
+  <div class="body">
+    <router-outlet></router-outlet>
   </div>
 </div>

@@ -85,7 +85,7 @@ export class AppService {
       console.log(
         'User has already logged in, no need to validate, redirect to /welcome'
       );
-      this.router.navigate(['/welcome']);
+      // this.router.navigate(['/welcome']);
       this.isLoggedIn = true;
       return true;
     }

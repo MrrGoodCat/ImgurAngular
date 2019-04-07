@@ -4,23 +4,60 @@
   .header
     height: 300px
     display: flex
-    .account-name
+    flex-direction: column
+    .header-top
+      height: 30%
+    .header-center
       display: flex
-      justify-content: center
-      align-items: center
-      margin-left: 7%
-      .logo
-        width: 128px
-        height: 128px
-        border-radius: 50%
-        background-size: cover
-      .name-container
-        h2
-          font-size: 3em
-          color: #ffffff
-          margin: 0 10px
-        span
-          margin-top: -30px
-          font-size: 1.5em
-          color: #ffffff
-          margin: 0 10px
+      align-self: flex-start
+      .account-name
+        display: flex
+        justify-content: center
+        align-items: center
+        margin-left: 7%
+        .logo
+          width: 128px
+          height: 128px
+          border-radius: 50%
+          background-size: cover
+        .name-container
+          h2
+            font-size: 3em
+            color: #ffffff
+            margin: 0 10px
+          span
+            margin-top: -30px
+            font-size: 1.5em
+            color: #ffffff
+            margin: 0 10px
+    .header-bottom
+      height: 30%
+      .menu
+        display: flex
+        ul
+          display: flex
+          justify-content: center
+          width: 100%
+          list-style: none
+          li
+            display: flex
+            flex-wrap: wrap
+            a
+              font-size: 18px
+              padding: 18px 40px
+              color: #ffffff
+              &:hover
+  .body
+    min-height: 150px
+
+.isActive
+  font-weight: bold
+  &::after
+    margin-top: 9px
+    border: 2px solid #fff
+    border-radius: 2px
+    content: " "
+    width: 110%
+    margin-left: -5%
+    display: block
+    box-sizing: inherit
