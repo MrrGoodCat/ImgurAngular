@@ -1,3 +1,32 @@
-<p>
-  about works!
-</p>
+<div class="container">
+  <aside class="user-info">
+    <div class="info about">
+      <div class="bio-navigation">
+        <h4 class="title">ABOUT <fa-icon [icon]="faPen" (click)="onEditAbout()"></fa-icon></h4>
+        <div></div>
+        <div class="button-container" [class.hide]="!isEditAbout">
+          <button (click)="onEditAbout()">Cancel</button>
+          <button>Save</button>
+        </div>
+      </div>
+      <textarea ref-textarea name="bio" [class.hide]="!isEditAbout" [(ngModel)]="bio"></textarea>
+      <p *ngIf="!isEditAbout">{{bio}}</p>
+    </div>
+    <div class="info">
+      <h4>JOINED</h4>
+      <span>{{userServise.accountBaseInformation.created * 1000 | date: 'MMMM'}} </span>
+      <span>{{userServise.accountBaseInformation.created * 1000 | date: 'd'}}, </span>
+      <span>{{userServise.accountBaseInformation.created * 1000 | date: 'yyyy'}}</span>
+    </div>
+    <div class="info">
+      <h4>INTERNET POINTS</h4>
+      <span>{{userServise.accountBaseInformation.reputation}}</span>
+    </div>
+    <div class="info">
+      <h4>NOTORIETY</h4>
+      <span>{{userServise.accountBaseInformation.reputation_name}}</span>
+    </div>
+
+  </aside>
+  <article></article>
+</div>

@@ -9,12 +9,21 @@ import { AboutComponent } from './about/about.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { CommentsComponent } from './comments/comments.component';
 import { PostsComponent } from './posts/posts.component';
+import { SharedModule } from '../shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [UserComponent, AboutComponent, FavoritesComponent, CommentsComponent, PostsComponent],
+  declarations: [
+    UserComponent,
+    AboutComponent,
+    FavoritesComponent,
+    CommentsComponent,
+    PostsComponent],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    SharedModule,
+    FormsModule
   ],
   providers: [
     UserService,
