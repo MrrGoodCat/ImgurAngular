@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { AppService } from 'src/app/app.service';
 
 
 @Component({
@@ -10,7 +11,8 @@ import { faPen } from '@fortawesome/free-solid-svg-icons';
 })
 export class AboutComponent implements OnInit {
 
-  constructor(protected userServise: UserService) { }
+  constructor(protected userServise: UserService,
+              protected appServise: AppService) { }
 
   isEditAbout = false;
   faPen = faPen;

@@ -3,41 +3,39 @@
   height: 60px
   display: flex
   flex-direction: row
-  // flex-wrap: wrap
   justify-content: space-between
   align-items: center
-  background-color: #214d72
+  // background-color: #214d72
   .left-side
     margin-left: 3%
     flex: 1 1 auto
     h2
-
-      // height: 60px
       a
-        // border: 1px solid red
         color: #ffffff
         padding: 13.5px 40px
         &:hover
-          background-color: #1d3752
+          // background-color: #1d3752
+          color: #1bb76e
   .center
     display: flex
     flex: 3 1 auto
     ul
       display: flex
       justify-content: flex-start
-      // flex-wrap: wrap
       width: 100%
       list-style: none
       li
         display: flex
         flex-wrap: wrap
         a
+          cursor: pointer
           font-size: 18px
           padding: 18px 40px
           color: #ffffff
-          // border: 1px solid red
+          z-index: 9999
           &:hover
-            background-color: #1d3752
+            // background-color: #1d3752
+            color: #1bb76e
   .right-side
     margin-right: 3%
     display: flex
@@ -69,7 +67,6 @@
             a
               width: 100%
               display: flex
-              // align-items: center
               cursor: pointer
               font-size: 18px
               padding: 18px 40px
@@ -84,16 +81,17 @@
         padding: 5px 30px
         color: #ffffff
         &:hover
-          background-color: #1d3752
+          // background-color: #1d3752
+          color: #1bb76e
         span
           padding-right: 10px
         .avatar
-          width: 50px
-          height: 50px
+          width: 40px
+          height: 40px
           background-size: cover
           border-radius: 50%
           background-image: url(../../assets/img/sign-in.svg)
 .active
-  background-color: #1d3752
+  // background-color: #1d3752
 .show
   display: none

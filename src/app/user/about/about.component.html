@@ -2,7 +2,8 @@
   <aside class="user-info">
     <div class="info about">
       <div class="bio-navigation">
-        <h4 class="title">ABOUT <fa-icon [icon]="faPen" (click)="onEditAbout()"></fa-icon></h4>
+        <h4 class="title">ABOUT <fa-icon [icon]="faPen" (click)="onEditAbout()"
+          *ngIf="appServise.userSecurity.account_username === userServise.accountBaseInformation.url"></fa-icon></h4>
         <div></div>
         <div class="button-container" [class.hide]="!isEditAbout">
           <button (click)="onEditAbout()">Cancel</button>
